@@ -1,6 +1,6 @@
 package polimerasa
 
-sealed abstract class NitrogenousBases(val letter: String)
+sealed abstract case class NitrogenousBases(letter: String)
 
 object NitrogenousBases {
   final case object CYTOSINE extends NitrogenousBases(letter = "C")
