@@ -1,0 +1,5 @@
+package polimerasa
+
+class RNA {
+
+}
