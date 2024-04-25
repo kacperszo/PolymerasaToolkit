@@ -13,7 +13,7 @@ object NitrogenousBases {
 
   final case object URACIL extends NitrogenousBases(letter = "U")
 
-  def fromLetter(letter: String): Unit = {
+  def fromLetter(letter: String): NitrogenousBases = {
     letter match {
       case "C" => CYTOSINE
       case "G" => GUANINE
@@ -26,5 +26,16 @@ object NitrogenousBases {
 
   def toLetter(nitrogenousBases: NitrogenousBases): String = {
     nitrogenousBases.letter
+  }
+
+  def complementary(nitrogenousBases: NitrogenousBases): NitrogenousBases = {
+    nitrogenousBases match {
+      case ADENINE => THYMINE
+      case THYMINE => ADENINE
+      case CYTOSINE => GUANINE
+      case GUANINE => CYTOSINE
+      case URACIL => ADENINE
+      case _ => throw new Exception("Unknown Nitrogenous base")
+    }
   }
 }
