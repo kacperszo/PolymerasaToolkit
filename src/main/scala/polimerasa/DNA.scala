@@ -1,5 +1,7 @@
 package polimerasa
 
-class DNA {
-
+class DNA(sequence: Array[NitrogenousBases]) {
+  def getSequence(): Array[NitrogenousBases] = {
+    sequence
+  }
 }

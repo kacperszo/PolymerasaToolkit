@@ -1,13 +1,13 @@
 package polimerasa
 
-class RNA(genome: Array[NitrogenousBases]) {
-  def getGenome(): Array[NitrogenousBases] = {
-    genome
+class RNA(sequence: Array[NitrogenousBases]) {
+  def getSequence(): Array[NitrogenousBases] = {
+    sequence
   }
 
   def complement(): Array[NitrogenousBases] = {
     var res = Array[NitrogenousBases]()
-    for base <- genome do {
+    for base <- sequence do {
       res :+= base.complementary()
     }
     res
@@ -18,6 +18,6 @@ class RNA(genome: Array[NitrogenousBases]) {
   }
 
   def reverse(): Array[NitrogenousBases] = {
-    this.genome.reverse
+    this.sequence.reverse
   }
 }
