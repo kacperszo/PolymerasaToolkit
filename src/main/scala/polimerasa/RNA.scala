@@ -13,4 +13,11 @@ class RNA(genome: Array[NitrogenousBases]) {
     res
   }
 
+  def reverse_complement(): Array[NitrogenousBases] = {
+    this.complement().reverse
+  }
+
+  def reverse(): Array[NitrogenousBases] = {
+    this.genome.reverse
+  }
 }
