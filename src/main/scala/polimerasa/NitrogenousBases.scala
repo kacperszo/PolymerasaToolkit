@@ -1,17 +1,15 @@
 package polimerasa
 
-sealed abstract case class NitrogenousBases(letter: String)
+enum NitrogenousBases(val letter: String) {
+  case CYTOSINE extends NitrogenousBases(letter = "C")
 
-object NitrogenousBases {
-  final case object CYTOSINE extends NitrogenousBases(letter = "C")
+  case GUANINE extends NitrogenousBases(letter = "G")
 
-  final case object GUANINE extends NitrogenousBases(letter = "G")
+  case ADENINE extends NitrogenousBases(letter = "A")
 
-  final case object ADENINE extends NitrogenousBases(letter = "A")
+  case THYMINE extends NitrogenousBases(letter = "T")
 
-  final case object THYMINE extends NitrogenousBases(letter = "T")
-
-  final case object URACIL extends NitrogenousBases(letter = "U")
+  case URACIL extends NitrogenousBases(letter = "U")
 
   def fromLetter(letter: String): NitrogenousBases = {
     letter match {
