@@ -26,8 +26,8 @@ enum NitrogenousBases(val letter: String) {
     nitrogenousBases.letter
   }
 
-  def complementary(nitrogenousBases: NitrogenousBases): NitrogenousBases = {
-    nitrogenousBases match {
+  def complementary(): NitrogenousBases = {
+    this match {
       case ADENINE => THYMINE
       case THYMINE => ADENINE
       case CYTOSINE => GUANINE
