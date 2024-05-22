@@ -1,23 +1,31 @@
 package polimerasa
 
-class DNA(sequence: Array[NitrogenousBases]) {
+class DNA(private var sequence: Array[NitrogenousBases]) {
   def getSequence(): Array[NitrogenousBases] = {
     sequence
   }
 
-  def complement(): Array[NitrogenousBases] = {
-    var res = Array[NitrogenousBases]()
-    for base <- sequence do {
-      res :+= base
-    }
-    res
+  def complement(): DNA = {
+    new DNA(this.sequence.map(base => base.complementary()))
   }
 
-  def reverse_complement(): Array[NitrogenousBases] = {
-    this.complement().reverse
+  def inPlaceComplement(): Unit = {
+    this.sequence = this.sequence.map(base => base.complementary())
   }
 
-  def reverse(): Array[NitrogenousBases] = {
-    this.sequence.reverse
+  def reverseComplement(): DNA = {
+    new DNA(this.sequence.map(base => base.complementary()).reverse)
+  }
+
+  def inPlaceReverseComplement(): Unit = {
+    this.sequence = this.sequence.map(base => base.complementary()).reverse
+  }
+
+  def reverse(): DNA = {
+    new DNA(this.sequence.reverse)
+  }
+
+  def inPlaceReverse(): Unit = {
+    this.sequence = this.sequence.reverse
   }
 }
