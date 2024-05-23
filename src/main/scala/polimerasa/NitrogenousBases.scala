@@ -11,16 +11,6 @@ enum NitrogenousBases(val letter: String) {
 
   case URACIL extends NitrogenousBases(letter = "U")
 
-  def fromLetter(letter: String): NitrogenousBases = {
-    letter match {
-      case "C" => CYTOSINE
-      case "G" => GUANINE
-      case "A" => ADENINE
-      case "T" => THYMINE
-      case "U" => URACIL
-      case _ => throw new Exception("Nitrogenous Base of given letter not found")
-    }
-  }
 
   def toLetter(nitrogenousBases: NitrogenousBases): String = {
     nitrogenousBases.letter
@@ -33,7 +23,20 @@ enum NitrogenousBases(val letter: String) {
       case CYTOSINE => GUANINE
       case GUANINE => CYTOSINE
       case URACIL => ADENINE
-      case _ => throw new Exception("Unknown Nitrogenous base")
+      case _ => throw new IllegalArgumentException("Unknown Nitrogenous base")
+    }
+  }
+}
+
+object NitrogenousBases {
+  def fromLetter(letter: Char): NitrogenousBases = {
+    letter match {
+      case 'C' => CYTOSINE
+      case 'G' => GUANINE
+      case 'A' => ADENINE
+      case 'T' => THYMINE
+      case 'U' => URACIL
+      case _ => throw new IllegalArgumentException("Nitrogenous Base of given letter not found")
     }
   }
 }
