@@ -12,7 +12,7 @@ case class FASTASequence(name: String, sequence: ArrayBuffer[NitrogenousBases]){
   def toRNA: RNA = {
     RNA(sequence.toArray)
   }
-  def toProtein = {
+  def toProtein: Unit = {
     throw new NotImplementedError()
   }
 }
