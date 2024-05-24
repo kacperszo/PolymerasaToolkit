@@ -42,7 +42,7 @@ enum NitrogenousBases(val letter: String) {
       case CYTOSINE => GUANINE
       case GUANINE => CYTOSINE
       case URACIL => ADENINE
-      case _ => throw new Exception("Unknown Nitrogenous base")
+      case _ => throw new IllegalArgumentException("Unknown Nitrogenous base")
     }
   }
 }
@@ -67,7 +67,7 @@ object NitrogenousBases {
       case 'V' => NOT_URACIL
       case 'N' => NUCLEIC_ACID
       case '-' => GAP
-      case letter => throw new Exception("Nitrogenous Base of given letter: "+letter+" not found")
+      case letter => throw new IllegalArgumentException("Nitrogenous Base of given letter: "+letter+" not found")
     }
   }
 
