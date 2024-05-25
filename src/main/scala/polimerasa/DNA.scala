@@ -21,7 +21,7 @@ class DNA(private var sequence: Array[NitrogenousBases]) {
     this.sequence = this.sequence.reverse
   }
 
-  def sequenceMatch(other: DNA): (Array[NitrogenousBases | GAP], Array[NitrogenousBases | GAP]) = {
+  def sequenceMatch(other: DNA): (Array[NitrogenousBases], Array[NitrogenousBases]) = {
     val thisSeq = sequence
     val otherSeq = other.getSequence
 
@@ -30,6 +30,6 @@ class DNA(private var sequence: Array[NitrogenousBases]) {
 
     val dynArr: Array[Array[Int]] = Array.ofDim[Int](rows, cols)
 
-    (null, null) // żeby sie nie pruł
+    (null, null) // so it does compile
   }
 }
