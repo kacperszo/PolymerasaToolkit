@@ -1,15 +1,13 @@
 package polimerasa.parsers
 
-import polimerasa.{DNA, NitrogenousBases, RNA}
+import polimerasa.*
 
-import scala.+:
 import scala.annotation.tailrec
-import scala.collection.mutable.ArrayBuffer
-import scala.util.Using
 import scala.io.Source
 import scala.language.postfixOps
+import scala.util.Using
 
-case class FASTASequence(name: String, sequence: Seq[NitrogenousBases]){
+case class NucleicAcidFASTASequence(name: String, sequence: Seq[NitrogenousBase]) {
   def toDNA: DNA = {
     DNA(sequence.toArray)
   }
@@ -17,34 +15,87 @@ case class FASTASequence(name: String, sequence: Seq[NitrogenousBases]){
   def toRNA: RNA = {
     RNA(sequence.toArray)
   }
-  def toProtein(): Unit = {
-    throw new NotImplementedError()
-  }
+}
+
+case class AminoAcidFASTASequence(name: String, sequence: Seq[AminoAcid]) {
+  def toPolypeptide: Polypeptide = Polypeptide(name, sequence.toArray)
 }
 
 object FASTAParser {
 
-  def parseFile(filePath: String): Seq[FASTASequence] = {
+  def parseNucleicAcidFile(filePath: String): Seq[NucleicAcidFASTASequence] = {
 
     @tailrec
-    def parseLine(line: String, acc: Seq[NitrogenousBases]): Seq[NitrogenousBases] = {
-      if(line.isEmpty) acc
-      else parseLine(line.substring(1), acc:+NitrogenousBases.fromLetter(line.toUpperCase.charAt(0)))
+    def parseLine(line: String, acc: Seq[NitrogenousBase]): Seq[NitrogenousBase] = {
+      if (line.isEmpty) acc
+      else
+        val base = NitrogenousBase.fromLetter(line.toUpperCase.charAt(0))
+        parseLine(line.substring(1), acc :+ base)
     }
 
     @tailrec
-    def parseLines(lines: Iterable[String], currentSeq: Option[FASTASequence], sequences: Seq[FASTASequence]): Seq[FASTASequence] = {
+    def parseLines(lines: Iterable[String], currentSeq: Option[NucleicAcidFASTASequence], sequences: Seq[NucleicAcidFASTASequence]): Seq[NucleicAcidFASTASequence] = {
 
-      lines match{
+      lines match {
         case Nil => if (currentSeq.nonEmpty) sequences :+ currentSeq.get else sequences
-        case line :: xs if line.startsWith(">") => parseLines(xs, Some[FASTASequence]( FASTASequence(line.substring(1), Seq.empty[NitrogenousBases])), if (currentSeq.nonEmpty) sequences :+ currentSeq.get else sequences)
-        case line :: xs => parseLines(xs, if(currentSeq.nonEmpty) Some[FASTASequence](FASTASequence(currentSeq.get.name, currentSeq.get.sequence ++ parseLine(line, Seq.empty[NitrogenousBases]))) else currentSeq, sequences)
+        case line :: xs if line.startsWith(">") => parseLines(
+          xs,
+          Some[NucleicAcidFASTASequence](
+            NucleicAcidFASTASequence(line.substring(1),
+              Seq.empty[NitrogenousBase])
+          ),
+          if (currentSeq.nonEmpty) sequences :+ currentSeq.get else sequences)
+        case line :: xs => parseLines(
+          xs,
+          if (currentSeq.nonEmpty)
+            Some[NucleicAcidFASTASequence](
+              NucleicAcidFASTASequence(currentSeq.get.name, currentSeq.get.sequence ++ parseLine(line, Seq.empty[NitrogenousBase]))
+            )
+          else currentSeq, sequences)
       }
 
     }
 
     Using(Source.fromFile(filePath)) { source =>
-      parseLines(source.getLines().toSeq, None, Seq.empty[FASTASequence])
-    }.getOrElse(throw new RuntimeException(s"Failed to read file: $filePath") )
+      parseLines(source.getLines().toSeq, None, Seq.empty[NucleicAcidFASTASequence])
+    }.getOrElse(throw new RuntimeException(s"Failed to read file: $filePath"))
+  }
+
+  def parseAminoAcidFile(filePath: String): Seq[AminoAcidFASTASequence] = {
+
+    @tailrec
+    def parseLine(line: String, acc: Seq[AminoAcid]): Seq[AminoAcid] = {
+      if (line.isEmpty) acc
+      else
+        val aminoAcid = AminoAcid.fromLetter(line.toUpperCase.charAt(0))
+        parseLine(line.substring(1), acc :+ aminoAcid)
+    }
+
+    @tailrec
+    def parseLines(lines: Iterable[String], currentSeq: Option[AminoAcidFASTASequence], sequences: Seq[AminoAcidFASTASequence]): Seq[AminoAcidFASTASequence] = {
+
+      lines match {
+        case Nil => if (currentSeq.nonEmpty) sequences :+ currentSeq.get else sequences
+        case line :: xs if line.startsWith(">") => parseLines(
+          xs,
+          Some[AminoAcidFASTASequence](
+            AminoAcidFASTASequence(line.substring(1),
+              Seq.empty[AminoAcid])
+          ),
+          if (currentSeq.nonEmpty) sequences :+ currentSeq.get else sequences)
+        case line :: xs => parseLines(
+          xs,
+          if (currentSeq.nonEmpty)
+            Some[AminoAcidFASTASequence](
+              AminoAcidFASTASequence(currentSeq.get.name, currentSeq.get.sequence ++ parseLine(line, Seq.empty[AminoAcid]))
+            )
+          else currentSeq, sequences)
+      }
+
+    }
+
+    Using(Source.fromFile(filePath)) { source =>
+      parseLines(source.getLines().toSeq, None, Seq.empty[AminoAcidFASTASequence])
+    }.getOrElse(throw new RuntimeException(s"Failed to read file: $filePath"))
   }
 }
