@@ -1,31 +1,14 @@
 package polimerasa
 
-class RNA(private var sequence: Array[NitrogenousBases]) {
-  def getSequence(): Array[NitrogenousBases] = {
-    sequence
-  }
+class RNA(var sequence: Array[NitrogenousBase]) {
 
   def complement(): RNA = {
-    new RNA(this.sequence.map(base => base.complementary()))
+    RNA(this.sequence.map(base => base.complementary()))
   }
-
-  def complementInPlace(): Unit = {
-    this.sequence = this.sequence.map(base => base.complementary())
-  }
-
   def reverseComplement(): RNA = {
-    new RNA(this.sequence.map(base => base.complementary()).reverse)
+    RNA(this.sequence.map(base => base.complementary()).reverse)
   }
-
-  def reverseComplementInPlace(): Unit = {
-    this.sequence = this.sequence.map(base => base.complementary()).reverse
-  }
-
   def reverse(): RNA = {
-    new RNA(this.sequence.reverse)
-  }
-
-  def reverseInPlace(): Unit = {
-    this.sequence = this.sequence.reverse
+    RNA(this.sequence.reverse)
   }
 }
