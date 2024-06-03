@@ -1,14 +1,14 @@
-package polimerasa.alignments.algorithms
+package polimerasa.matching.algorithms
 
 import polimerasa.{GeneticSequence, NitrogenousBase}
-import polimerasa.alignments.AlignmentResult
+import polimerasa.matching.SequenceMatchingResult
 
 import java.io.InvalidClassException
 
 import scala.collection.mutable.ArrayBuffer
 
 object SequenceMatching {
-  def NeedlemanWunsch(obj1: GeneticSequence, obj2: GeneticSequence): AlignmentResult = {
+  def NeedlemanWunsch(obj1: GeneticSequence, obj2: GeneticSequence): SequenceMatchingResult = {
     if (obj1.getClass.ne(obj2.getClass)) {
       throw InvalidClassException("Cannot match DNA with RNA!")
     }
@@ -86,6 +86,6 @@ object SequenceMatching {
 
 
 
-    AlignmentResult(GeneticSequence(res1.toArray.reverse), GeneticSequence(res2.toArray.reverse))
+    SequenceMatchingResult(GeneticSequence(res1.toArray.reverse), GeneticSequence(res2.toArray.reverse))
   }
 }

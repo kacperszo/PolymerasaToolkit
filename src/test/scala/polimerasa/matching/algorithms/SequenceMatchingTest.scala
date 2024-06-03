@@ -1,4 +1,4 @@
-package polimerasa.alignments.algorithms
+package polimerasa.matching.algorithms
 
 import org.scalatest.funsuite.AnyFunSuiteLike
 import polimerasa.{DNA, NitrogenousBase, RNA}

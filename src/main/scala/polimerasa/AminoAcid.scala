@@ -38,6 +38,7 @@ object AminoAcid {
       case 'G' => GLYCINE
       case 'H' => HISTIDINE
       case 'I' => ISOLEUCINE
+      case 'K' => LYSINE
       case 'L' => LEUCINE
       case 'M' => METHIONINE
       case 'N' => ASPARAGINE
@@ -53,5 +54,6 @@ object AminoAcid {
       case 'X' => ANY
       case '*' => STOP
       case '-' => GAP
+      case letter => throw new IllegalArgumentException("AminoAcid of given letter: "+letter+" not found")
   }
 }
