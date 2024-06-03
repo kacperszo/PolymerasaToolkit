@@ -25,9 +25,29 @@ enum AminoAcid(val short: String, val abbrev:String, val codons: Array[String]){
 }
 object AminoAcid{
   def fromLetter(letter: Char): AminoAcid = {
-    //TODO implement
-    throw NotImplementedError()
-    letter match
-      case _ => SERINE
+    letter match {
+      case 'A' => ALANINE
+      case 'C' => CYSTEINE
+      case 'D' => ASPARTIC_ACID
+      case 'E' => GLUTAMIC_ACID
+      case 'F' => PHENYLALANINE
+      case 'G' => GLYCINE
+      case 'H' => HISTIDINE
+      case 'I' => ISOLEUCINE
+      case 'K' => LYSINE
+      case 'L' => LEUCINE
+      case 'M' => METHIONINE
+      case 'N' => ASPARAGINE
+      case 'P' => PROLINE
+      case 'Q' => GLUTAMINE
+      case 'R' => ARGININE
+      case 'S' => SERINE
+      case 'T' => THREONINE
+      case 'V' => VALINE
+      case 'W' => TRYPTOPHAN
+      case 'Y' => TYROSINE
+      case '-' => STOP
+      case _ => throw new IllegalArgumentException("Invalid amino acid letter")
+    }
   }
 }
