@@ -22,7 +22,6 @@ case class AminoAcidFASTASequence(name: String, sequence: Seq[AminoAcid]) {
 }
 
 object FASTAParser {
-
   def parseNucleicAcidFile(filePath: String): Seq[NucleicAcidFASTASequence] = {
 
     @tailrec
