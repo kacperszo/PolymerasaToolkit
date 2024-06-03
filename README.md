@@ -3,10 +3,10 @@
 Utilizing Scala for scalable genetic data processing. PolymerasaToolkit offers efficient tools for large-scale genetic analysis, enabling researchers to explore genomic datasets effectively
 ## RoadMap
 - [x] DNA and RNA classes
-- [ ] Proteins classes
+- [x] Amino Acid classes
 - [x] FASTA DNA parser
-- [ ] FASTA Proteins parser
-- [ ] Needleman–Wunsch algorithm
+- [x] FASTA Proteins parser
+- [x] Needleman–Wunsch algorithm
 - [ ] DNA visualization
 
 
@@ -43,8 +43,7 @@ sbt compile
 ## Basic Usage
 Here is a simple example to demonstrate how to use PolymerasaToolkit:
 ```scala
-//TODO
-val result = FASTAParser.parseFile("sample1.fasta")
+    val result = FASTAParser.parseNucleicAcidFile("./sample1.fasta").toArray
 ```
 For more detailed examples and usage, please refer to the Documentation.
 
