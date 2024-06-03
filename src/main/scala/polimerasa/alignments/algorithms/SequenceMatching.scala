@@ -5,6 +5,8 @@ import polimerasa.alignments.AlignmentResult
 
 import java.io.InvalidClassException
 
+import scala.collection.mutable.ArrayBuffer
+
 object SequenceMatching {
   def NeedlemanWunsch(obj1: GeneticSequence, obj2: GeneticSequence): AlignmentResult = {
     if (obj1.getClass.ne(obj2.getClass)) {
@@ -54,38 +56,36 @@ object SequenceMatching {
 
     var i = rows - 1
     var j = cols - 1
-    var k = rows.max(cols)
-    val res1: Array[NitrogenousBase] = Array.ofDim(k)
-    val res2: Array[NitrogenousBase] = Array.ofDim(k)
+    val res1 = new ArrayBuffer[NitrogenousBase](rows.max(cols))
+    val res2 = new ArrayBuffer[NitrogenousBase](rows.max(cols))
 
 
     while i != 0 && j != 0 do {
       fromArr(i)(j) match {
         case 1 => {
-          res1(k-1) = seq1(j-1)
-          res2(k-1) = NitrogenousBase.GAP
+          res1 += seq1(j-1)
+          res2 += NitrogenousBase.GAP
           j -= 1
         }
         case 2 => {
-          res1(k-1) = seq1(j-1)
-          res2(k-1) = seq2(i-1)
+          res1 += seq1(j-1)
+          res2+= seq2(i-1)
           j -= 1
           i -= 1
         }
         case 3 => {
-          res1(k-1) = NitrogenousBase.GAP
-          res2(k-1) = seq2(i-1)
+          res1 += NitrogenousBase.GAP
+          res2 += seq2(i-1)
           i -= 1
         }
         case _ => {
           // unreachable
         }
       }
-      k -= 1
     }
 
 
 
-    AlignmentResult(GeneticSequence(res1), GeneticSequence(res2))
+    AlignmentResult(GeneticSequence(res1.toArray.reverse), GeneticSequence(res2.toArray.reverse))
   }
 }
