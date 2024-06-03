@@ -1,7 +1,7 @@
 
 # PolymerasaToolkit
 Utilizing Scala for scalable genetic data processing. PolymerasaToolkit offers efficient tools for large-scale genetic analysis, enabling researchers to explore genomic datasets effectively
-## RoadMap
+## Road Map
 - [x] DNA and RNA classes
 - [x] Amino Acid classes
 - [x] FASTA DNA parser
